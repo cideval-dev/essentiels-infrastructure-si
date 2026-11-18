@@ -1,4 +1,32 @@
-# essentiels-infrastructure-si
+# Essentiels de l'infrastructure du SI
+
+Ce dépôt rassemble l'ensemble des réalisations, configurations Infrastructure as Code (IaC), scripts et preuves de vérification des ateliers et travaux pratiques.
+
+## Structure du dépôt
+
+```text
+essentiels-infrastructure-si/
+├── README.md
+├── .gitignore
+├── ateliers/
+│   ├── a1-mongodb-docker/
+│   ├── a2-vm-linux-conteneur-web/
+│   ├── a3-reseau-vm/
+│   ├── a4-stockage-virtuel/
+│   ├── a5-nginx-minikube/
+│   ├── b1-nginx-opentofu/
+│   ├── b2-catalogue-node-postgres-redis/
+│   ├── b3-nginx-puppet/
+│   └── b4-nginx-ansible/
+└── tp/
+    ├── 01-docker-minikube-node/
+    ├── 02-infrastructure-as-code-websolutions/
+    └── 03-opentofu-avance/
+        ├── devsecops/
+        └── supervision/
+```
+
+## Ateliers et TP
 
 | Ateliers |
 | --- |
