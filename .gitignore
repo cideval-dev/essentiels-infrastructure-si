@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+*.tfvars
+!.tfvars.example
+*.tfvars.json
+.terraform/
+*.tfstate*
+*.tfplan
+kubeconfig*
