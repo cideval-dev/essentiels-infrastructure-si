@@ -1,0 +1,39 @@
+---
+- name: Configurer et maintenir le reverse-proxy Nginx de WebSolutions
+  hosts: web
+  gather_facts: false
+  vars:
+    api_upstream_host: "websolutions-api"
+    api_upstream_port: 3000
+    nginx_conf_path: "/etc/nginx/conf.d/default.conf"
+    ansible_python_interpreter: "/usr/bin/python3"
+
+  tasks:
+    - name: 0. Amorcer Python3 sur le conteneur Alpine cible (prerequis Ansible)
+      ansible.builtin.raw: "test -e /usr/bin/python3 || apk add --no-cache python3"
+      register: bootstrap_python
+      changed_when: "bootstrap_python.stdout != ''"
+
+    - name: 1. Installer le paquet curl dans le conteneur cible
+      community.general.apk:
+        name: curl
+        state: present
+        update_cache: true
+
+    - name: 2. Deployer le fichier de configuration Nginx (droits 0644)
+      ansible.builtin.template:
+        src: nginx-reverse-proxy.conf.j2
+        dest: "{{ nginx_conf_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Recharger Nginx
+
+    - name: 3. Verifier l'etat du service Nginx (PID actif et syntaxe valide)
+      ansible.builtin.shell: "test -s /var/run/nginx.pid && kill -0 $(cat /var/run/nginx.pid) && nginx -t"
+      changed_when: false
+
+  handlers:
+    - name: Recharger Nginx
+      ansible.builtin.command: nginx -s reload
+      changed_when: true

@@ -1,0 +1,5 @@
+app_version = "1.0.0"
+web_port    = 8080
+db_name     = "websolutions"
+db_user     = "ws_user"
+# Definir le secret avant tofu plan/apply : $env:TF_VAR_db_password = "ChangeMeLocal123!"
